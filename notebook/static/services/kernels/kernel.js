@@ -317,7 +317,7 @@ define([
         };
 
         var on_error = function (xhr, status, err) {
-            that.events.trigger('kernel_dead.Kernel', {kernel: that});
+            that.events.trigger('kernel_failed_restart.Kernel', {kernel: that});
             that._kernel_dead();
             if (error) {
                 error(xhr, status, err);
@@ -940,6 +940,7 @@ define([
                 this.clear_callbacks_for_msg(msg_id);
             }
         }
+        this.events.trigger('finished_iopub.Kernel', {kernel: this, msg_id: msg_id});
     };
     
     /**
